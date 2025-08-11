@@ -38,8 +38,9 @@ export default function HomePage() {
             isLight ? "text-gray-600" : "text-gray-400"
           }`}
         >
-          VETA is a next-generation P2P payment platform powered by Balanced
-          UTxO, Quantum cryptography, and hybrid Quantum-AI infrastructure.
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-500">VETA</span> is 
+          a next-generation P2P payment platform powered by Balanced UTxO, 
+          Quantum cryptography, and hybrid Quantum-AI infrastructure.
         </p>
         <a
           href="downloads/VETA_Whitepaper_EN.pdf"
