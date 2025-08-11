@@ -1,103 +1,120 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import React, { useState } from "react";
+
+export default function HomePage() {
+  const [theme, setTheme] = useState("light");
+  const isLight = theme === "light";
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div
+      className={`min-h-screen px-6 py-12 transition-colors duration-300 ${
+        isLight
+          ? "bg-white text-gray-900"
+          : "bg-gradient-to-b from-gray-950 to-gray-900 text-white"
+      }`}
+    >
+      {/* Theme Toggle */}
+      <div className="flex justify-end mb-6">
+        <button
+          onClick={() => setTheme(isLight ? "dark" : "light")}
+          className={`px-4 py-2 rounded-md shadow-sm ${
+            isLight
+              ? "bg-gray-200 text-gray-900 hover:bg-gray-300"
+              : "bg-white text-gray-900 hover:bg-gray-100"
+          }`}
+        >
+          {isLight ? "Dark Mode" : "Light Mode"}
+        </button>
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      {/* Hero Section */}
+      <section className="text-center max-w-4xl mx-auto">
+        <h1 className="text-4xl md:text-6xl font-bold mb-6">
+          The Quantum-Ready Payment Infrastructure
+        </h1>
+        <p
+          className={`text-lg mb-8 ${
+            isLight ? "text-gray-600" : "text-gray-400"
+          }`}
+        >
+          VETA is a next-generation P2P payment platform powered by Balanced
+          UTxO, Quantum cryptography, and hybrid Quantum-AI infrastructure.
+        </p>
+        <a
+          href="downloads/VETA_Whitepaper_EN.pdf"
+          className={`inline-block text-lg px-8 py-4 rounded-lg transition ${
+            isLight
+              ? "bg-blue-600 text-white hover:bg-blue-700"
+              : "bg-blue-600 text-white hover:bg-blue-700"
+          }`}
+        >
+          Download Whitepaper
+        </a>
+      </section>
+
+      {/* Features Section */}
+      <section className="mt-24 grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {[
+          {
+            icon: "🌐",
+            title: "Distributed Ledger",
+            desc: "Non-blockchain based Balance UTxO model enables parallelism, statefulness, and scalability.",
+            color: "text-blue-400",
+          },
+          {
+            icon: "⚡",
+            title: "Quantum & AI Powered",
+            desc: "Integrated QAOA optimization, zkSNARK acceleration, and QML-based fraud detection engine.",
+            color: "text-yellow-400",
+          },
+          {
+            icon: "🛡️",
+            title: "Post-Quantum Secure",
+            desc: "Hybrid signature wallet infrastructure (ECDSA + PQC) with zk-proof privacy and quantum-resilient cryptography.",
+            color: "text-green-400",
+          },
+        ].map((f, i) => (
+          <div
+            key={i}
+            className={`p-6 rounded-xl transition ${
+              isLight
+                ? "bg-gray-100 text-gray-900"
+                : "bg-gray-800 text-white"
+            }`}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+            <div className={`${f.color} w-10 h-10 mb-4`}>{f.icon}</div>
+            <h3 className="text-xl font-semibold mb-2">{f.title}</h3>
+            <p className={isLight ? "text-gray-700" : "text-gray-400"}>
+              {f.desc}
+            </p>
+          </div>
+        ))}
+      </section>
+
+      {/* Call to Action */}
+      <section className="mt-24 text-center">
+        <h2 className="text-3xl font-semibold mb-4">
+          Join the Quantum Web3 Movement
+        </h2>
+        <p
+          className={`mb-6 ${isLight ? "text-gray-700" : "text-gray-400"}`}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
+          Developers, investors, and innovators — shape the future of trustless
+          payment.
+        </p>
         <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="https://github.com/veta-foundation/veta"
+          className={`inline-block text-lg px-8 py-4 rounded-lg transition ${
+            isLight
+              ? "bg-gray-900 text-white hover:bg-gray-800"
+              : "bg-white text-gray-900 hover:bg-gray-200"
+          }`}
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
+          Get Involved
         </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
     </div>
   );
 }
+
